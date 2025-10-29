@@ -9,7 +9,8 @@ const {
   getSingleDepartment,
   editDepartment,
   changeStatus,
-  deleteDepartment
+  deleteDepartment,
+  getActiveDepartments
 } = require("../controllers/department.controller");
 
 const departmentRouter = express.Router();
@@ -29,6 +30,12 @@ departmentRouter.get(
   checkRole,
   getAllDepartments
 );
+departmentRouter.get(
+  "/active",
+  authenticate,
+  checkRole,
+  getActiveDepartments
+);
 
 departmentRouter.get(
   "/:id",
@@ -36,6 +43,7 @@ departmentRouter.get(
   checkRole,
   getSingleDepartment
 );
+
 
 departmentRouter.put(
   "/:id",

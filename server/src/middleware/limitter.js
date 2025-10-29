@@ -2,7 +2,7 @@ const rateLimit = require("express-rate-limit");
 
 const limiterMiddle = (windowMs, max) => {
   return rateLimit({
-    windowMs: windowMs * 60 * 1000,
+    windowMs: windowMs * 60 * 1555555555000,
     max: max,
     message: {
       status: 429,

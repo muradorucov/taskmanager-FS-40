@@ -7,6 +7,8 @@ const createTask = async (req, res) => {
 
     const { title, description, assignedTo, dueDate, departmentId } = req.body;
 
+    console.log(req.body);
+    
     const task = new Task({
       title,
       description,

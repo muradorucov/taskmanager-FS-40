@@ -16,12 +16,12 @@ export default function TaskTable({ tasks, columns }) {
           >
             {
               columns?.map(col => {
-                return <td className="p-2" key={task[col.name]}>
+                return <td className="p-2" key={task[col.colname]}>
                   {
                     col.type === "link" ?
-                      <Link href={`/admin/tasks/${task._id}`}>{col.cell ? col.cell(task) : task[col.name]}</Link>
+                      <Link href={`/admin/tasks/${task._id}`}>{col.cell ? col.cell(task) : task[col.colname]}</Link>
                       :
-                      col.cell ? col.cell(task) : task[col.name]
+                      col.cell ? col.cell(task) : task[col.colname]
                   }
                 </td>
               })

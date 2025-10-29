@@ -39,6 +39,31 @@ const getAllDepartments = async (req, res) => {
     res.status(500).json({ message: "Internal server error", error: error.message });
   }
 };
+const getActiveDepartments = async (req, res) => {
+  try {
+    const departments = await Department.find({
+      isDelete: false,
+      isActive: true,
+      users: { $ne: [] }
+    })
+      .populate({
+        path: "users",
+        select: "fullName email lastLogin",
+        match: { isDelete: false, isActive: true }
+      })
+      .populate("tasks", "title status dueDate")
+      .lean();
+
+
+    // const filtered = departments.filter(dep => dep.users && dep.users.length > 0);
+    res.status(200).json({
+      message: "Departments fetched successfully",
+      data: departments
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error: error.message });
+  }
+};
 
 const getSingleDepartment = async (req, res) => {
   try {
@@ -176,5 +201,6 @@ module.exports = {
   getSingleDepartment,
   editDepartment,
   changeStatus,
-  deleteDepartment
+  deleteDepartment,
+  getActiveDepartments
 };
